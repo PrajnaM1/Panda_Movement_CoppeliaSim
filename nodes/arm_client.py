@@ -113,7 +113,7 @@ if __name__=="__main__":
         
         result = call_server()                                             
 
-        print('The object was at: ', result.final_coord.pose.position.x, result.final_coord.pose.position.y, result.final_coord.pose.position.z, result.final_coord.pose.orientation.x, result.final_coord.pose.orientation.y, result.final_coord.pose.orientation.z, result.final_coord.pose.orientation.w)
+        print('Final Position: ', result.final_coord.pose.position.x, result.final_coord.pose.position.y, result.final_coord.pose.position.z, result.final_coord.pose.orientation.x, result.final_coord.pose.orientation.y, result.final_coord.pose.orientation.z, result.final_coord.pose.orientation.w)
 
     except rospy.ROSInterruptException as e:
         print('Exception occured!', e)
