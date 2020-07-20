@@ -28,7 +28,7 @@ class action_server():
     success = True
     force_time = 0.0
 
-    #WIPE PARAMETERS
+    #APPLY FORCE PARAMETERS
     sel_x = 1.0
     sel_y = 1.0
     sel_z = 1.0
@@ -45,7 +45,7 @@ class action_server():
         self.a_server = actionlib.SimpleActionServer("apply_force_as", robot_geoAction, execute_cb = self.execute_cb, auto_start = False)
         self.a_server.start()
         
-        #Subscribe to /move_status from move_to_contact_prim.py
+        #Subscribe to /move_contact_status from move_to_contact_prim.py; Start force application once the contact is reached
         self.move_contact_status_sub = rospy.Subscriber("/move_contact_status", Bool, self.apply_force, queue_size = 1)
    
 
@@ -81,8 +81,6 @@ class action_server():
         selection_msg = geometry_msgs.msg.Vector3()
         wrench_msg = geometry_msgs.msg.Wrench()
         pose_msg = geometry_msgs.msg.PoseStamped()
-        #g1 = geometry_msgs.msg.Pose()
-        #g2 = geometry_msgs.msg.Pose()
 
         #Listen to transforms
         listener = tf.TransformListener()
@@ -111,80 +109,6 @@ class action_server():
 
             time.sleep(action_server.force_time)
 
-            '''
-            #Publish the movement
-            (trans,rot) = listener.lookupTransform('panda_link0', 'end_effector', rospy.Time())
-            current_pose = [round(trans[0],3), round(trans[1],3), round(trans[2],3), round(rot[0],3), round(rot[1],3), round(rot[2],3), round(rot[3],3)]
-
-            #Define the two goals for the 'wipe' action along the y-axis
-            g1.position.x = current_pose[0]
-            g1.position.y = current_pose[1] + 0.2
-            g1.position.z = current_pose[2]
-            g1.orientation.x = current_pose[3]
-            g1.orientation.y = current_pose[4]
-            g1.orientation.z = current_pose[5]
-            g1.orientation.w = current_pose[6]
-
-            
-            g2.position.x = current_pose[0]
-            g2.position.y = current_pose[1] - 0.2
-            g2.position.z = current_pose[2]
-            g2.orientation.x = current_pose[3]
-            g2.orientation.y = current_pose[4]
-            g2.orientation.z = current_pose[5]
-            g2.orientation.w = current_pose[6]
-
-            #Move to 'g1'
-            step_size = 0.001
-    
-            num_pts = abs(int((g1.position.y // step_size) + 1))
-
-            y_step = g1.position.y / num_pts
-            y = np.arange(current_pose[1], g1.position.y, y_step)
-
-            for i in y:
-
-                (trans,rot) = listener.lookupTransform('panda_link0', 'end_effector', rospy.Time())
-                current_pose = [round(trans[0],3), round(trans[1],3), round(trans[2],3), round(rot[0],3), round(rot[1],3), round(rot[2],3), round(rot[3],3)]
-                
-                pose_msg.header.stamp = rospy.Time.now()
-                pose_msg.pose.position.x = current_pose[0]
-                pose_msg.pose.position.y = i 
-                pose_msg.pose.position.z = current_pose[2] 
-                pose_msg.pose.orientation.x = current_pose[3]
-                pose_msg.pose.orientation.y = current_pose[4]
-                pose_msg.pose.orientation.z = current_pose[5]
-                pose_msg.pose.orientation.w = current_pose[6]
-                pose_pub.publish(pose_msg)
-                time.sleep(0.01)
-
-            #Move to 'g2'
-            step_size = 0.001
-    
-            num_pts = abs(int((g2.position.y // step_size) + 1))
-
-            y_step = g2.position.y / num_pts
-            (trans,rot) = listener.lookupTransform('panda_link0', 'end_effector', rospy.Time())
-            current_pose = [round(trans[0],3), round(trans[1],3), round(trans[2],3), round(rot[0],3), round(rot[1],3), round(rot[2],3), round(rot[3],3)]
-            y = np.arange(current_pose[1], g2.position.y, y_step)
-
-            for i in y:
-
-                (trans,rot) = listener.lookupTransform('panda_link0', 'end_effector', rospy.Time())
-                current_pose = [round(trans[0],3), round(trans[1],3), round(trans[2],3), round(rot[0],3), round(rot[1],3), round(rot[2],3), round(rot[3],3)]
-                
-                pose_msg.header.stamp = rospy.Time.now()
-                pose_msg.pose.position.x = current_pose[0]
-                pose_msg.pose.position.y = i 
-                pose_msg.pose.position.z = current_pose[2] 
-                pose_msg.pose.orientation.x = current_pose[3]
-                pose_msg.pose.orientation.y = current_pose[4]
-                pose_msg.pose.orientation.z = current_pose[5]
-                pose_msg.pose.orientation.w = current_pose[6]
-                pose_pub.publish(pose_msg)
-                time.sleep(0.01)
-            '''
-
             #Stop force application
             wrench_msg.force.x = 0.0
             wrench_msg.force.y = 0.0
@@ -193,21 +117,7 @@ class action_server():
             wrench_msg.torque.y = 0.0
             wrench_msg.torque.z = 0.0
             wrench_pub.publish(wrench_msg)
-            #time.sleep(0.01)
             
-            '''
-            pose_msg.header.stamp = rospy.Time.now()
-            pose_msg.pose.position.x = 0.5
-            pose_msg.pose.position.y = 0.0
-            pose_msg.pose.position.z = 0.5 
-            pose_msg.pose.orientation.x = 0.0
-            pose_msg.pose.orientation.y = 0.0
-            pose_msg.pose.orientation.z = 0.0
-            pose_msg.pose.orientation.w = 1.0
-            pose_pub.publish(pose_msg)
-   
-            print('Wiping Complete!')
-            '''
             action_server.feedback.movement = 'Apply Force Complete!'
             self.a_server.publish_feedback(action_server.feedback)
             time.sleep(1)
