@@ -4,7 +4,7 @@ ARM CLIENT:<br />
 Specify type of action and required parameters in this node<br />
 <br />
 PICK SERVER:<br />
-If 'goal.move' is TRUE, 'gripper content' is FALSE and 'object reachability' is TRUE the end effector moves to the 'goal' and then, grasps the object<br />
+If 'goal.move' is TRUE, 'gripper content' is FALSE and 'object reachability' is TRUE, the end effector moves to the 'goal' and then, grasps the object<br />
 If 'goal.move' is FALSE, the end effector directly grasps the object<br />
 <br />
 PLACE SERVER:<br />
