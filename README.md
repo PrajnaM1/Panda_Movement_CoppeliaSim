@@ -1,8 +1,8 @@
 # Panda_Movement_CoppeliaSim
 
-ARM CLIENT:_
-Specify type of action and required parameters in this node_
-_
+ARM CLIENT:<br />
+Specify type of action and required parameters in this node<br />
+<br />
 PICK SERVER:_
 If 'goal.move' is TRUE, the end effector moves to the 'goal' and then, grasps the object_
 If 'goal.move' is FALSE, the end effector directly grasps the object_
