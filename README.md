@@ -1,38 +1,37 @@
 # Panda_Movement_CoppeliaSim
-Panda Movement (CoppeliaSim)
 
-ARM CLIENT:
-Specify type of action and required parameters in this node
-
-PICK SERVER:
-If 'goal.move' is TRUE, the end effector moves to the 'goal' and then, grasps the object
-If 'goal.move' is FALSE, the end effector directly grasps the object
-
-PLACE SERVER:
-If 'goal.move' is TRUE, the end effector moves to the 'goal' and then, releases the object
-If 'goal.move' is FALSE, the end effector directly releases the object
-
-GRASP/RELEASE NODE:
-Sends the 'grasp'/'release' command through '/panda/commands'
-
-MOVE TO GOAL SERVER:
-Moves end effector to the 'goal' as specified in the client node in interpolated steps
-
-MOVE TO CONTACT SERVER:
-Moves end effector towards a contact until the 'force_threshold' is met. 
-
-APPLY FORCE SERVER:
-Once the end effector has reached the contact/surface, force is applied on the contact for a time period as specified in the client node. 
-
-SCREW SERVER:
-In progress...
-
-WIPE SERVER:
-In progress...
-
-INSERT SERVER:
-In progress
-
+ARM CLIENT:_
+Specify type of action and required parameters in this node_
+_
+PICK SERVER:_
+If 'goal.move' is TRUE, the end effector moves to the 'goal' and then, grasps the object_
+If 'goal.move' is FALSE, the end effector directly grasps the object_
+_
+PLACE SERVER:_
+If 'goal.move' is TRUE, the end effector moves to the 'goal' and then, releases the object_
+If 'goal.move' is FALSE, the end effector directly releases the object_
+_
+GRASP/RELEASE NODE:_
+Sends the 'grasp'/'release' command through '/panda/commands'_
+_
+MOVE TO GOAL SERVER:_
+Moves end effector to the 'goal' as specified in the client node in interpolated steps_
+_
+MOVE TO CONTACT SERVER:_
+Moves end effector towards a contact until the 'force_threshold' is met. _
+_
+APPLY FORCE SERVER:_
+Once the end effector has reached the contact/surface, force is applied on the contact for a time period as specified in the client node. _
+_
+SCREW SERVER:_
+In progress..._
+_
+WIPE SERVER:_
+In progress..._
+_
+INSERT SERVER:_
+In progress_
+_
 
 
 
