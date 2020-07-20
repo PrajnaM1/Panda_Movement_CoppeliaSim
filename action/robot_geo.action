@@ -9,6 +9,7 @@ geometry_msgs/Wrench ee_wrench
 bool move
 float32 screw_depth
 float32 screw_lead
+float32 force_time
 ---
 #result
 geometry_msgs/PoseStamped final_coord
