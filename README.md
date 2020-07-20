@@ -5,11 +5,11 @@ Specify type of action and required parameters in this node<br />
 <br />
 PICK SERVER:<br />
 If 'goal.move' is TRUE, 'gripper content' is FALSE and 'object reachability' is TRUE, the end effector moves to the 'goal' and then, grasps the object<br />
-If 'goal.move' is FALSE, the end effector directly grasps the object<br />
+If 'goal.move' is FALSE, 'gripper content' is FALSE and 'object reachability' is TRUE,the end effector directly grasps the object<br />
 <br />
 PLACE SERVER:<br />
 If 'goal.move' is TRUE, 'gripper content' is TRUE and 'object reachability' is TRUE, the end effector moves to the 'goal' and then, releases the object<br />
-If 'goal.move' is FALSE, the end effector directly releases the object<br />
+If 'goal.move' is FALSE, 'gripper content' is TRUE and 'object reachability' is TRUE, the end effector directly releases the object<br />
 <br />
 GRASP/RELEASE NODE:<br />
 Sends the 'grasp'/'release' command through '/panda/commands'<br />
