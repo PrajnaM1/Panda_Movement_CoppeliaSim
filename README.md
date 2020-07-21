@@ -24,7 +24,7 @@ APPLY FORCE SERVER:<br />
 Once the end effector has reached the contact/surface, force is applied on the contact for a time period as specified in the client node. <br />
 <br />
 SCREW SERVER:<br />
-In progress...<br />
+Moves end effector to 'goal' and begins the action based on screw depth, screw lead, screw angle, screw direction and screw force. <br />
 <br />
 WIPE SERVER:<br />
 In progress...<br />
