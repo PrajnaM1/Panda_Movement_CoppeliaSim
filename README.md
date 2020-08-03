@@ -1,7 +1,7 @@
 # Panda_Movement_CoppeliaSim
 
 NOTE:<br />
-'action_server.py' is for panda.ttt and 'action_server_updated.py' is for panda_base_gripper.ttt
+'action_server.py' is for panda.ttt and 'action_server_updated.py' is for panda_base_gripper.ttt. Also, the latter does not include 'screw' action because joint_states in missing in the simulator. 
 
 ARM CLIENT:<br />
 Specify type of action and required parameters in this node<br />
