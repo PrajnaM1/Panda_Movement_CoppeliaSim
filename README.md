@@ -1,5 +1,8 @@
 # Panda_Movement_CoppeliaSim
 
+NOTE:<br />
+'action_server.py' is for panda.ttt and 'action_server_updated.py' is for panda_base_gripper.ttt
+
 ARM CLIENT:<br />
 Specify type of action and required parameters in this node<br />
 <br />
