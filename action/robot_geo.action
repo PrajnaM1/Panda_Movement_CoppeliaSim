@@ -1,0 +1,18 @@
+#goal/Parameters
+geometry_msgs/PoseStamped coord
+string type
+string direction
+bool obj_reach
+bool gripper_content
+geometry_msgs/Vector3 selection
+geometry_msgs/Wrench ee_wrench
+float32 screw_depth
+float32 screw_lead
+float32 force_time
+---
+#result
+geometry_msgs/PoseStamped final_coord
+
+---
+#feedback
+string movement
