@@ -22,37 +22,6 @@ def call_server(action):
     #GOAL Coordinates
     goal = robot_geoGoal()
 
-    '''
-    #PICK
-    goal.coord.pose.position.x = 0.58
-    goal.coord.pose.position.y = 0.00
-    goal.coord.pose.position.z = 0.06
-    goal.coord.pose.orientation.x = 0.0
-    goal.coord.pose.orientation.y = 0.0
-    goal.coord.pose.orientation.z = 0.0
-    goal.coord.pose.orientation.w = 1.0
-    '''
-    '''
-    #Move to contact
-    goal.coord.pose.position.x = 0.50
-    goal.coord.pose.position.y = 0.00
-    goal.coord.pose.position.z = 0.03
-    goal.coord.pose.orientation.x = 0.0
-    goal.coord.pose.orientation.y = 0.0
-    goal.coord.pose.orientation.z = 0.0
-    goal.coord.pose.orientation.w = 1.0
-    '''
-    '''
-    #Screw Position
-    goal.coord.pose.position.x = 0.54
-    goal.coord.pose.position.y = 0.15
-    goal.coord.pose.position.z = 0.07
-    goal.coord.pose.orientation.x = 0.0
-    goal.coord.pose.orientation.y = 0.0
-    goal.coord.pose.orientation.z = 0.0
-    goal.coord.pose.orientation.w = 1.0
-    '''
-
     #Selection Vector (1- position, 0- wrench)
     goal.selection.x = 1.0
     goal.selection.y = 1.0
@@ -61,7 +30,7 @@ def call_server(action):
     #Wrench
     goal.ee_wrench.force.x = 0.0
     goal.ee_wrench.force.y = 0.0
-    goal.ee_wrench.force.z = 5.0
+    goal.ee_wrench.force.z = -5.0
     goal.ee_wrench.torque.x = 0.0
     goal.ee_wrench.torque.y = 0.0
     goal.ee_wrench.torque.z = 0.0
@@ -110,53 +79,7 @@ def call_server(action):
             print("The gripper is already holding something!")
         
     elif action == 'move_to_goal':
-        '''
-        goal.type = 'move_to_goal'
-        goal.coord.pose.position.x = 0.57
-        goal.coord.pose.position.y = -0.16
-        goal.coord.pose.position.z = 0.15
-        goal.coord.pose.orientation.x = 0.14
-        goal.coord.pose.orientation.y = 0.0
-        goal.coord.pose.orientation.z = 0.0
-        goal.coord.pose.orientation.w = 1.0
-        client.send_goal(goal, feedback_cb=feedback_cb)
-        client.wait_for_result()
-
-        goal.type = 'move_to_goal'
-        goal.coord.pose.position.x = 0.57
-        goal.coord.pose.position.y = -0.16
-        goal.coord.pose.position.z = 0.13
-        goal.coord.pose.orientation.x = 0.14
-        goal.coord.pose.orientation.y = 0.0
-        goal.coord.pose.orientation.z = 0.0
-        goal.coord.pose.orientation.w = 1.0
-        client.send_goal(goal, feedback_cb=feedback_cb)
-        client.wait_for_result()
-        '''
-        '''
-        #screw 90 deg
-        goal.type = 'move_to_goal'
-        goal.coord.pose.position.x = 0.56
-        goal.coord.pose.position.y = 0.20
-        goal.coord.pose.position.z = 0.21
-        goal.coord.pose.orientation.x = 1.0
-        goal.coord.pose.orientation.y = 0.0
-        goal.coord.pose.orientation.z = 0.0
-        goal.coord.pose.orientation.w = 1.0
-        client.send_goal(goal, feedback_cb=feedback_cb)
-        client.wait_for_result()
-
-        goal.type = 'move_to_goal'
-        goal.coord.pose.position.x = 0.56
-        goal.coord.pose.position.y = 0.22
-        goal.coord.pose.position.z = 0.21
-        goal.coord.pose.orientation.x = 1.0
-        goal.coord.pose.orientation.y = 0.0
-        goal.coord.pose.orientation.z = 0.0
-        goal.coord.pose.orientation.w = 1.0
-        client.send_goal(goal, feedback_cb=feedback_cb)
-        client.wait_for_result()
-        '''
+        
         goal.type = 'move_to_goal'
         goal.coord.pose.position.x = 0.57
         goal.coord.pose.position.y = -0.13
@@ -237,6 +160,7 @@ def call_server(action):
             print("The gripper has no object to place!")
 
     elif action == 'apply_force':
+        
         #move_to_goal primitive
         goal.type = 'move_to_goal'
         goal.coord.pose.position.x = 0.50
@@ -265,61 +189,12 @@ def call_server(action):
         goal.screw_depth = 25.4 #1 inch
         goal.screw_lead = 1.5   #in mm
         #num_rotations = goal.screw_depth // goal.screw_lead
-        #total_rounds = num_rotation * 2
-        #goal.rot_angle = math.pi/2 
+        #total_rounds = num_rotations * 4
+        total_rounds = 4
+        #goal.rot_angle = math.pi/2 #Set in the server for now
 
         round = 0
-        '''
-        #move_to_goal primitive (move to screw)
-        goal.type = 'move_to_goal'
-        goal.coord.pose.position.x = 0.56
-        goal.coord.pose.position.y = 0.20
-        goal.coord.pose.position.z = 0.21
-        goal.coord.pose.orientation.x = 1.0
-        goal.coord.pose.orientation.y = 0.0
-        goal.coord.pose.orientation.z = 0.0
-        goal.coord.pose.orientation.w = 1.0
-        client.send_goal(goal, feedback_cb=feedback_cb)
-        client.wait_for_result()
-
-        goal.type = 'move_to_goal'
-        goal.coord.pose.position.x = 0.56
-        goal.coord.pose.position.y = 0.22
-        goal.coord.pose.position.z = 0.21
-        goal.coord.pose.orientation.x = 1.0
-        goal.coord.pose.orientation.y = 0.0
-        goal.coord.pose.orientation.z = 0.0
-        goal.coord.pose.orientation.w = 1.0
-        client.send_goal(goal, feedback_cb=feedback_cb)
-        client.wait_for_result()
-        '''
-        '''
-        #move_to_goal primitive (move to screw)
-        goal.type = 'move_to_goal'
-        goal.coord.pose.position.x = 0.40
-        goal.coord.pose.position.y = 0.00
-        goal.coord.pose.position.z = 0.30
-        goal.coord.pose.orientation.x = 0.1
-        goal.coord.pose.orientation.y = 0.0
-        goal.coord.pose.orientation.z = 0.0
-        goal.coord.pose.orientation.w = 1.0
-        client.send_goal(goal, feedback_cb=feedback_cb)
-        client.wait_for_result()
-        '''
-        '''
-        #move_to_goal primitive (move to screw)
-        goal.type = 'move_to_goal'
-        goal.coord.pose.position.x = 0.40
-        goal.coord.pose.position.y = 0.00
-        goal.coord.pose.position.z = 0.30
-        goal.coord.pose.orientation.x = 0.3
-        goal.coord.pose.orientation.y = 0.1
-        goal.coord.pose.orientation.z = 0.0
-        goal.coord.pose.orientation.w = 1.0
-        client.send_goal(goal, feedback_cb=feedback_cb)
-        client.wait_for_result()
-        '''
-
+        
         goal.type = 'move_to_goal'
         goal.coord.pose.position.x = 0.57
         goal.coord.pose.position.y = -0.13
@@ -342,7 +217,7 @@ def call_server(action):
         client.send_goal(goal, feedback_cb=feedback_cb)
         client.wait_for_result()
         
-        while round < 4:
+        while round < total_rounds #4 rotations
             #Grasp
             goal.type = 'grasp'
             client.send_goal(goal, feedback_cb=feedback_cb)
@@ -407,18 +282,8 @@ def call_server(action):
         client.wait_for_result()
         time.sleep(1)
 
-        #Move to a point near hole
-        goal.type = 'move_to_goal'
-        goal.coord.pose.position.x = 0.70
-        goal.coord.pose.position.y = 0.00
-        goal.coord.pose.position.z = 0.15
-        goal.coord.pose.orientation.x = 0.0
-        goal.coord.pose.orientation.y = 0.0
-        goal.coord.pose.orientation.z = 0.0
-        goal.coord.pose.orientation.w = 1.0
-        client.send_goal(goal, feedback_cb=feedback_cb)
-        client.wait_for_result()
-
+        #Move to a point near hole on the board
+      
         goal.type = 'move_to_goal'
         goal.coord.pose.position.x = 0.70
         goal.coord.pose.position.y = 0.00
@@ -430,6 +295,7 @@ def call_server(action):
         client.send_goal(goal, feedback_cb=feedback_cb)
         client.wait_for_result()
         
+        #Insert
         goal.type = 'insert'
         goal.coord.pose.position.x = 0.71
         goal.coord.pose.position.y = 0.00
