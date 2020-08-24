@@ -1,7 +1,7 @@
 # Panda_Movement_CoppeliaSim
 
 NOTE:<br />
-'action_server.py' is for panda.ttt and 'action_server_updated.py' is for panda_base_gripper.ttt. Also, the latter does not include 'screw' action because joint_states in missing in the simulator. 
+'action_server_robot.py' and 'action_client_robot.py' are applicable to the latest version of panda_base_gripper.ttt. 
 
 ACTION CLIENT:<br />
 Specify type of action and required parameters in this node<br />
@@ -19,7 +19,7 @@ MOVE TO GOAL PRIMITIVE:<br />
 Moves end effector to the 'goal' as specified in the client node in interpolated steps<br />
 <br />
 MOVE TO CONTACT PRIMITIVE:<br />
-Moves end effector towards a contact in the required direction of force application until the 'force_threshold' is met. <br />
+Moves end effector towards a contact until the 'force_threshold' is met. <br />
 <br />
 APPLY FORCE:<br />
 Once the end effector has reached the contact/surface, force is applied on the contact as specified in the client node. <br />
@@ -27,12 +27,7 @@ Once the end effector has reached the contact/surface, force is applied on the c
 SCREW (In Progress):<br />
 Moves end effector to 'goal' and begins the action based on screw depth, screw lead, screw angle, screw direction and screw force. <br />
 <br />
-WIPE SERVER:<br />
-In progress...<br />
-<br />
-INSERT SERVER:<br />
-In progress<br />
-<br />
+
 
 
 
