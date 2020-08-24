@@ -256,39 +256,39 @@ class action_server():
         
         #Record initial orientation for rotate back function
         if self._screw_count == 0:
-           self._screw_current_pose = [round(trans.x,3), round(trans.y,3), round(trans.z,3), round(rot.x,3), 
-           round(rot.y,3), round(rot.z,3), round(rot.w,3)]
-           self._screw_count += 1
-           print("Init Pose for Rotate back: ", self._screw_current_pose)
+            self._screw_current_pose = [round(trans.x,3), round(trans.y,3), round(trans.z,3), round(rot.x,3), 
+            round(rot.y,3), round(rot.z,3), round(rot.w,3)]
+            self._screw_count += 1
+            print("Init Pose for Rotate back: ", self._screw_current_pose)
                 
-        angle = np.pi / 4 #IMPORTANT: Set opposite angle for 'ROTATE BACK' 
-        screw_q = PyKDL.Rotation.RPY(0.0, 0.0, angle).GetQuaternion()
-        print("The final angle quaternions for the rotation are: ", screw_q)
+            angle = np.pi / 8 #IMPORTANT: Set opposite angle for 'ROTATE BACK' 
+            screw_q = PyKDL.Rotation.RPY(0.0, 0.0, angle).GetQuaternion()
+            print("The final angle quaternions for the rotation are: ", screw_q)
 
-        #ee pose
-        p = geometry_msgs.msg.PoseStamped()
-        p.header.stamp = rospy.Time(0)
-        p.header.frame_id = "end_effector"
-        p.pose.position.x = 0.0 #Not Used
-        p.pose.position.y = 0.0 #Not Used
-        p.pose.position.z = 0.0 #Not Used
-        p.pose.orientation.x = screw_q[0]
-        p.pose.orientation.y = screw_q[1]
-        p.pose.orientation.z = screw_q[2]
-        p.pose.orientation.w = screw_q[3]
+            #ee pose
+            p = geometry_msgs.msg.PoseStamped()
+            p.header.stamp = rospy.Time(0)
+            p.header.frame_id = "end_effector"
+            p.pose.position.x = 0.0 #Not Used
+            p.pose.position.y = 0.0 #Not Used
+            p.pose.position.z = 0.0 #Not Used
+            p.pose.orientation.x = screw_q[0]
+            p.pose.orientation.y = screw_q[1]
+            p.pose.orientation.z = screw_q[2]
+            p.pose.orientation.w = screw_q[3]
 
-        #Convert to panda_link0 frame
-        p = self._tfBuffer.transform(p,"panda_link0")
-        p = [round(p.pose.position.x,3), round(p.pose.position.y,3), round(p.pose.position.z,3), round(p.pose.orientation.x,3), 
-        round(p.pose.orientation.y,3), round(p.pose.orientation.z,3), round(p.pose.orientation.w,3)]
-        
-        # Works for 0,0,0,1
-        # if  self._goal_screw_direction == 'clockwise':
-            # self._goal_pose = [current_pose[0], current_pose[1], current_pose[2] - 0.001, p[3], p[4], p[5], p[6]]
-        # else:
-            # self._goal_pose = [current_pose[0], current_pose[1], current_pose[2] + 0.001, p[3], p[4], p[5], p[6]]
+            #Convert to panda_link0 frame
+            p = self._tfBuffer.transform(p,"panda_link0")
+            p = [round(p.pose.position.x,3), round(p.pose.position.y,3), round(p.pose.position.z,3), round(p.pose.orientation.x,3), 
+            round(p.pose.orientation.y,3), round(p.pose.orientation.z,3), round(p.pose.orientation.w,3)]
             
-        self._goal_pose = [current_pose[0], current_pose[1], current_pose[2], p[3], p[4], p[5], p[6]]
+            # Works for 0,0,0,1
+            # if  self._goal_screw_direction == 'clockwise':
+                # self._goal_pose = [current_pose[0], current_pose[1], current_pose[2] - 0.001, p[3], p[4], p[5], p[6]]
+            # else:
+                # self._goal_pose = [current_pose[0], current_pose[1], current_pose[2] + 0.001, p[3], p[4], p[5], p[6]]
+                
+            self._goal_pose = [self._screw_current_pose[0], self._screw_current_pose[1], self._screw_current_pose[2], p[3], p[4], p[5], p[6]]
                     
         print("Currently at: ", current_pose, "New pose at: ", self._goal_pose)
 
@@ -331,33 +331,38 @@ class action_server():
         current_pose = [round(trans.x,3), round(trans.y,3), round(trans.z,3), round(rot.x,3), 
         round(rot.y,3), round(rot.z,3), round(rot.w,3)]
 
-        angle = -np.pi / 4
-        screw_q = PyKDL.Rotation.RPY(0.0, 0.0, angle).GetQuaternion()
-        print("The final angle quaternions for the rotation are: ", screw_q)
+        if self._screw_count == 0:
+            self._screw_current_pose = [round(trans.x,3), round(trans.y,3), round(trans.z,3), round(rot.x,3), 
+            round(rot.y,3), round(rot.z,3), round(rot.w,3)]
+            self._screw_count += 1
 
-        #ee pose
-        p = geometry_msgs.msg.PoseStamped()
-        p.header.stamp = rospy.Time(0)
-        p.header.frame_id = "end_effector"
-        p.pose.position.x = 0.0
-        p.pose.position.y = 0.0
-        p.pose.position.z = 0.0
-        p.pose.orientation.x = screw_q[0]
-        p.pose.orientation.y = screw_q[1]
-        p.pose.orientation.z = screw_q[2]
-        p.pose.orientation.w = screw_q[3]
+            angle = -np.pi / 8
+            screw_q = PyKDL.Rotation.RPY(0.0, 0.0, angle).GetQuaternion()
+            print("The final angle quaternions for the rotation are: ", screw_q)
 
-        #Convert to panda_link0 frame
-        p = self._tfBuffer.transform(p,"panda_link0")
-        p = [round(p.pose.position.x,3), round(p.pose.position.y,3), round(p.pose.position.z,3), round(p.pose.orientation.x,3), 
-        round(p.pose.orientation.y,3), round(p.pose.orientation.z,3), round(p.pose.orientation.w,3)]
+            #ee pose
+            p = geometry_msgs.msg.PoseStamped()
+            p.header.stamp = rospy.Time(0)
+            p.header.frame_id = "end_effector"
+            p.pose.position.x = 0.0
+            p.pose.position.y = 0.0
+            p.pose.position.z = 0.0
+            p.pose.orientation.x = screw_q[0]
+            p.pose.orientation.y = screw_q[1]
+            p.pose.orientation.z = screw_q[2]
+            p.pose.orientation.w = screw_q[3]
 
-        self._goal_pose = [current_pose[0], current_pose[1], current_pose[2], p[3], p[4], p[5], p[6]]
+            #Convert to panda_link0 frame
+            p = self._tfBuffer.transform(p,"panda_link0")
+            p = [round(p.pose.position.x,3), round(p.pose.position.y,3), round(p.pose.position.z,3), round(p.pose.orientation.x,3), 
+            round(p.pose.orientation.y,3), round(p.pose.orientation.z,3), round(p.pose.orientation.w,3)]
+
+            self._goal_pose = [self._screw_current_pose[0], self._screw_current_pose[1], self._screw_current_pose[2], p[3], p[4], p[5], p[6]]
+
         print("Currently at: ", current_pose, "New pose at: ", self._goal_pose)
 
         #Get goal_time
         diff_linear = np.array([self._goal_pose[0] - trans.x, self._goal_pose[1] - trans.y, self._goal_pose[2] - trans.z])
-        
         qp = PyKDL.Rotation.Quaternion(rot.x,rot.y,rot.z,rot.w)
         current_angle = qp.GetRPY()
         qg = PyKDL.Rotation.Quaternion(self._goal_pose[3],self._goal_pose[4],self._goal_pose[5],self._goal_pose[6])
@@ -369,7 +374,6 @@ class action_server():
             diff_angular[2] -= 2 * np.pi
         if final_ang < -np.pi:
             diff_angular[2] += 2 * np.pi
-            
         max_vel_lin = 0.14
         max_vel_ang = 0.70
         time_lin = np.sqrt(np.sum(diff_linear**2)) / max_vel_lin
