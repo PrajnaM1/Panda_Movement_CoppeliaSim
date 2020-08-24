@@ -465,7 +465,7 @@ class action_server():
 
             #Step Size Determination
             real_time_elapsed = (rospy.Time.now() - self._starting_time).to_sec()
-            action_duration = (self._goal_starting_time - self._starting_time).to_sec()
+            action_duration = (self._goal_time - self._starting_time).to_sec()
             steps = min(real_time_elapsed/action_duration, 1)
             steps = min(steps, 1)
 
