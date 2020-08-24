@@ -357,6 +357,7 @@ class action_server():
 
         #Get goal_time
         diff_linear = np.array([self._goal_pose[0] - trans.x, self._goal_pose[1] - trans.y, self._goal_pose[2] - trans.z])
+        
         qp = PyKDL.Rotation.Quaternion(rot.x,rot.y,rot.z,rot.w)
         current_angle = qp.GetRPY()
         qg = PyKDL.Rotation.Quaternion(self._goal_pose[3],self._goal_pose[4],self._goal_pose[5],self._goal_pose[6])
@@ -368,6 +369,7 @@ class action_server():
             diff_angular[2] -= 2 * np.pi
         if final_ang < -np.pi:
             diff_angular[2] += 2 * np.pi
+            
         max_vel_lin = 0.14
         max_vel_ang = 0.70
         time_lin = np.sqrt(np.sum(diff_linear**2)) / max_vel_lin
